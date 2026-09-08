@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full bg-slate-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍽️ Le Restaurant des Mots de Fatiah - Apprendre les Adjectifs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'mama-pink': '#FF6B8B',
+                        'mama-pink-dark': '#E0486C',
+                        'mama-yellow': '#FFD15C',
+                        'mama-yellow-light': '#FFF6D6',
+                        'mama-green': '#4ECDC4',
+                        'mama-cream': '#FFFDF9',
+                        'mama-purple': '#9B51E0',
+                        'mama-red': '#FF4757',
+                        'mama-bg': '#FFF3E4',
+                    },
+                    fontFamily: {
+                        serif: ['"Fredoka"', 'cursive', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFF0F3;
+        }
+
+        .font-mama {
+            font-family: 'Fredoka', cursive, sans-serif;
+        }
+
+        /* Cooking Mama Kitchen Gingham Pattern Background */
+        .restaurant-bg {
+            background-color: #FFE5EC;
+            background-image: 
+                radial-gradient(#FFB3C1 15%, transparent 16%),
+                radial-gradient(#FF94A8 15%, transparent 16%);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
+        /* Cooking Recipe Board Card */
+        .carte-menu {
+            background: #FFFDF9;
+            box-shadow: 0 20px 40px -10px rgba(255, 107, 139, 0.25), 0 0 0 6px #FF8E9E;
+            border-radius: 2rem;
+            position: relative;
+        }
+
+        .carte-border {
+            border: 4px dashed #FFB3C1;
+            border-radius: 1.5rem;
+            background: #FFFFFF;
+        }
+
+        /* Mama Candy Gloss Buttons */
+        .btn-gold {
+            background: linear-gradient(180deg, #FFD15C 0%, #FFAA00 100%);
+            box-shadow: 0 6px 0px #D68A00, 0 8px 15px rgba(255, 170, 0, 0.4);
+            border: 2px solid #FFF;
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0px #D68A00, 0 12px 20px rgba(255, 170, 0, 0.5);
+        }
+        .btn-gold:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0px #D68A00;
+        }
+
+        /* Mama Pink Action Button */
+        .btn-terracotta {
+            background: linear-gradient(180deg, #FF6B8B 0%, #FF4757 100%);
+            box-shadow: 0 6px 0px #C41C3B, 0 8px 15px rgba(255, 71, 87, 0.4);
+            border: 2px solid #FFF;
+            transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-terracotta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0px #C41C3B, 0 12px 20px rgba(255, 71, 87, 0.5);
+        }
+        .btn-terracotta:active {
+            transform: translateY(3px);
+            box-shadow: 0 2px 0px #C41C3B;
+        }
+
+        /* Pulse audio wave animation */
+        @keyframes audioPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+        .audio-playing {
+            animation: audioPulse 0.8s infinite ease-in-out;
+            border-color: #FFD15C !important;
+            background-color: #FFF3C4 !important;
+        }
+
+        /* Canvas layout for confetti overlay */
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        .bounce-gentle {
+            animation: bounceGentle 2s infinite ease-in-out;
+        }
+
+        @keyframes bounceGentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+    </style>
+</head>
+
+<body class="h-full text-slate-800 restaurant-bg antialiased selection:bg-mama-pink selection:text-white flex flex-col justify-between min-h-screen">
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Mama Kitchen Header -->
+    <header class="w-full bg-white/95 backdrop-blur-md border-b-4 border-mama-pink text-slate-800 sticky top-0 z-40 shadow-md">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-full bg-mama-pink text-white border-2 border-white flex items-center justify-center text-2xl shadow-md bounce-gentle">
+                    👩‍🍳
+                </div>
+                <div>
+                    <h1 class="font-mama text-xl md:text-2xl font-bold tracking-wide text-mama-pink-dark flex items-center gap-2">
+                        Cooking Fatiah <span class="text-xs bg-mama-yellow text-slate-900 font-bold px-2.5 py-0.5 rounded-full font-sans tracking-normal uppercase border border-amber-400">Fatiah</span>
+                    </h1>
+                    <p class="text-xs text-slate-500 font-medium hidden sm:block">Le Restaurant des Mots de Fatiah — A1 🇫🇷✨</p>
+                </div>
+            </div>
+
+            <!-- Header Audio Status & Score Badge -->
+            <div class="flex items-center gap-3">
+                <div id="audioStatusBadge" class="hidden md:flex items-center gap-1.5 px-3 py-1 bg-mama-yellow-light border-2 border-mama-yellow rounded-full text-xs font-bold text-slate-700">
+                    <i class="fa-solid fa-volume-high text-amber-500"></i>
+                    <span>Audio fr-FR</span>
+                </div>
+                <div class="bg-mama-pink text-white border-2 border-white px-3.5 py-1.5 rounded-2xl flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-star text-mama-yellow text-base animate-pulse"></i>
+                    <span id="headerScore" class="font-mama font-bold text-white text-base md:text-lg">0 / 100</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center px-4 py-6 md:py-8">
+        <div class="w-full max-w-3xl">
+
+            <!-- WELCOME SCREEN (COOKING MAMA STYLE) -->
+            <section id="welcomeScreen" class="carte-menu p-6 md:p-10 text-center relative overflow-hidden transition-all duration-500">
+                <div class="carte-border p-6 md:p-10 bg-mama-cream">
+                    
+                    <!-- Mama Cooking Avatar Banner -->
+                    <div class="relative inline-block mb-4">
+                        <div class="w-24 h-24 md:w-28 md:h-28 rounded-full bg-gradient-to-tr from-mama-pink to-mama-yellow p-1 shadow-xl mx-auto">
+                            <div class="w-full h-full rounded-full bg-white flex items-center justify-center text-5xl md:text-6xl border-2 border-mama-pink">
+                                👩‍🍳
+                            </div>
+                        </div>
+                        <span class="absolute -bottom-2 -right-2 bg-mama-red text-white text-xs font-bold font-mama px-3 py-1 rounded-full border-2 border-white shadow">
+                            MAMA FATIAH !
+                        </span>
+                    </div>
+
+                    <h2 class="font-mama text-3xl md:text-5xl text-mama-pink-dark font-bold mb-3 leading-tight">
+                        Cuisinons les Mots !
+                    </h2>
+                    
+                    <p class="text-slate-600 text-sm md:text-base max-w-lg mx-auto mb-6 leading-relaxed font-medium">
+                        Bienvenue dans la cuisine de <strong>Fatiah</strong> ! Aide Mama à préparer de délicieux plats français en apprenant les adjectifs en français !
+                    </p>
+
+                    <!-- Restaurant Menu Features Badge Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-lg mx-auto mb-8 text-left text-xs font-semibold text-slate-700">
+                        <div class="bg-white p-3 rounded-2xl border-2 border-mama-yellow shadow-sm flex items-center gap-2.5">
+                            <span class="text-2xl">🍳</span>
+                            <span><strong>Étape 1:</strong> Choisis le bon adjectif</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl border-2 border-mama-green shadow-sm flex items-center gap-2.5">
+                            <span class="text-2xl">🥗</span>
+                            <span><strong>Étape 2:</strong> Fais les courses !</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl border-2 border-mama-pink shadow-sm flex items-center gap-2.5">
+                            <span class="text-2xl">🍱</span>
+                            <span><strong>Étape 3:</strong> Remets en ordre</span>
+                        </div>
+                    </div>
+
+                    <button id="btnStart" onclick="startGame()" class="btn-gold text-slate-900 font-mama font-bold text-lg md:text-xl px-10 py-4 rounded-2xl inline-flex items-center gap-3 cursor-pointer">
+                        <span>Commencer la Cuisine !</span>
+                        <i class="fa-solid fa-utensils"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- GAME CONTAINER (COOKING STATION BOARD) -->
+            <section id="gameScreen" class="hidden carte-menu p-4 md:p-8 relative transition-all duration-300">
+                <div class="carte-border p-4 md:p-8 bg-mama-cream">
+                    
+                    <!-- Progress Bar & Section Info Header -->
+                    <div class="mb-6 pb-4 border-b-2 border-dashed border-mama-pink/40">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span id="partTitle" class="text-xs font-bold uppercase tracking-wider text-white bg-mama-pink px-3.5 py-1 rounded-full font-mama shadow-sm">
+                                PARTIE 1 — Choisis le bon adjectif
+                            </span>
+                            <span id="questionCounter" class="text-xs md:text-sm font-bold text-slate-600 font-mama bg-mama-yellow-light border border-mama-yellow px-3 py-1 rounded-full">
+                                Recette 1 / 10
+                            </span>
+                        </div>
+                        
+                        <!-- Mama Cooking Progress Bar Track -->
+                        <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden border-2 border-mama-pink/30 p-0.5 shadow-inner">
+                            <div id="progressBar" class="bg-gradient-to-r from-mama-yellow via-mama-pink to-mama-red h-full w-0 transition-all duration-500 rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Audio Controller Bar (Mama Voice Box) -->
+                    <div class="mb-6 bg-white border-2 border-mama-yellow rounded-2xl p-3 md:p-4 flex items-center justify-between gap-3 shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-mama-yellow text-slate-900 flex items-center justify-center text-lg shrink-0 font-bold border border-white shadow">
+                                🔊
+                            </div>
+                            <div>
+                                <h3 class="text-xs text-amber-600 font-bold uppercase font-mama">Écoute de la recette</h3>
+                                <p id="audioInstruction" class="text-xs md:text-sm font-semibold text-slate-700">Cliquez sur « Écouter » pour la prononciation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button id="btnListen" onclick="playAudioPrompt()" class="btn-terracotta text-white px-3 py-2 md:px-4 md:py-2 rounded-xl text-xs md:text-sm font-bold font-mama flex items-center gap-2">
+                                <i class="fa-solid fa-play"></i> <span>Écouter</span>
+                            </button>
+                            <button id="btnRepeat" onclick="playAudioPrompt()" class="bg-white border-2 border-slate-300 hover:bg-slate-50 text-slate-700 px-3 py-2 rounded-xl text-xs md:text-sm font-bold font-mama flex items-center gap-1.5" title="Répéter">
+                                <i class="fa-solid fa-rotate-right"></i> <span class="hidden sm:inline">Répéter</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Question Prompt Card -->
+                    <div class="mb-6 text-center bg-white p-4 rounded-2xl border-2 border-mama-pink/30 shadow-sm">
+                        <div id="questionImageWrapper" class="mb-4 hidden">
+                            <img id="questionImg" src="" alt="Illustration du plat" class="w-full max-w-xs h-36 md:h-44 object-cover rounded-2xl border-4 border-mama-yellow shadow-md mx-auto transform transition hover:scale-105 duration-300" onerror="this.parentElement.classList.add('hidden')">
+                        </div>
+                        <h2 id="questionPrompt" class="font-mama text-2xl md:text-3xl font-bold text-slate-800 mb-2">
+                            <!-- Question text injected here -->
+                        </h2>
+                        <p id="questionSubtext" class="text-xs md:text-sm text-slate-500 font-medium italic">
+                            <!-- Instruction subtitle injected here -->
+                        </p>
+                    </div>
+
+                    <!-- INTERACTIVE QUESTION CONTENT WORKSPACE -->
+                    <div id="answerWorkspace" class="min-h-[180px] flex flex-col justify-center mb-6">
+                        <!-- Dynamic content for Partie 1, 2, or 3 will be rendered here -->
+                    </div>
+
+                    <!-- FEEDBACK & NEXT CONTROL PANEL -->
+                    <div id="feedbackPanel" class="hidden p-4 rounded-2xl mb-4 text-left transition-all duration-300">
+                        <div class="flex items-start gap-3">
+                            <div id="feedbackIcon" class="text-3xl shrink-0 mt-0.5"></div>
+                            <div class="flex-grow">
+                                <h4 id="feedbackTitle" class="font-mama font-bold text-lg md:text-xl mb-1"></h4>
+                                <p id="feedbackExplanation" class="text-xs md:text-sm font-medium leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Navigation Buttons -->
+                    <div class="flex justify-end items-center border-t-2 border-dashed border-mama-pink/30 pt-4">
+                        <button id="btnValidate" onclick="validateAnswer()" class="btn-gold text-slate-900 font-mama font-bold px-8 py-3.5 rounded-2xl flex items-center gap-2 text-base md:text-lg">
+                            <span>Valider</span>
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button id="btnNext" onclick="nextQuestion()" class="hidden btn-terracotta text-white font-mama font-bold px-8 py-3.5 rounded-2xl flex items-center gap-2 text-base md:text-lg">
+                            <span>Question suivante</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- FINAL RESULT SCREEN (COOKING MAMA STYLE) -->
+            <section id="resultScreen" class="hidden carte-menu p-6 md:p-10 text-center relative overflow-hidden">
+                <div class="carte-border p-6 md:p-10 bg-mama-cream">
+                    
+                    <div class="w-20 h-20 bg-mama-yellow rounded-full border-4 border-white flex items-center justify-center text-4xl mx-auto mb-2 shadow-lg bounce-gentle">
+                        🏆
+                    </div>
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-mama-pink font-mama mb-1">Résultat Final</h2>
+                    <h3 class="font-mama text-3xl md:text-4xl text-slate-800 font-bold mb-6">Le Verdict de Mama Fatiah !</h3>
+
+                    <!-- Score Wheel Box -->
+                    <div class="w-44 h-44 md:w-52 md:h-52 rounded-full bg-white border-8 border-mama-pink mx-auto mb-6 flex flex-col items-center justify-center shadow-2xl relative">
+                        <span class="text-xs text-slate-400 uppercase font-bold font-mama tracking-wider">TON SCORE</span>
+                        <div class="flex items-baseline text-mama-red font-mama font-extrabold my-1">
+                            <span id="finalScoreVal" class="text-5xl md:text-6xl">0</span>
+                            <span class="text-lg text-slate-400">/100</span>
+                        </div>
+                        <div id="starRating" class="flex gap-1 text-mama-yellow text-base">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+
+                    <!-- Appreciation Badge -->
+                    <div class="bg-white border-2 border-mama-yellow rounded-2xl p-5 max-w-md mx-auto mb-8 shadow-sm">
+                        <h4 id="appreciationTitle" class="font-mama text-2xl font-bold text-mama-pink-dark mb-2">
+                            Félicitations !
+                        </h4>
+                        <p id="appreciationText" class="text-xs md:text-sm text-slate-700 leading-relaxed font-semibold italic">
+                            Même plus fort(e) que Mama ! Excellent !
+                        </p>
+                    </div>
+
+                    <!-- Restart Action Button -->
+                    <button onclick="restartGame()" class="btn-gold text-slate-900 font-mama font-bold text-lg px-8 py-4 rounded-2xl inline-flex items-center gap-3 cursor-pointer shadow-lg">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Recommencer la Cuisine</span>
+                    </button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-4 text-center text-xs font-semibold text-slate-500 bg-white/80 border-t border-mama-pink/20">
+        <p>🍳 Cooking Fatiah — Le Restaurant des Mots de Fatiah 🇫🇷✨</p>
+    </footer>
+
+    <script>
+        /* ==========================================================================
+           1. QUESTION DATABASE (10 QUESTIONS WITH IMAGES)
+           ========================================================================== */
+        const questionsData = [
+            // PARTIE 1 : Choisis le bon adjectif (Q1 - Q4)
+            {
+                id: 1,
+                part: "PARTIE 1 — Choisis le bon adjectif",
+                subInstruction: "Choisis la bonne forme de l'adjectif pour compléter la phrase.",
+                type: "mcq",
+                prompt: "🍲 La soupe est ___ .",
+                imageUrl: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80",
+                audioText: "La soupe est chaude.",
+                options: [
+                    { id: "A", text: "chaud" },
+                    { id: "B", text: "chaude" },
+                    { id: "C", text: "chauds" },
+                    { id: "D", text: "chaudes" }
+                ],
+                correctAnswer: "B",
+                explanation: "« Soupe » est féminin singulier, donc on utilise l'adjectif « chaude »."
+            },
+            {
+                id: 2,
+                part: "PARTIE 1 — Choisis le bon adjectif",
+                subInstruction: "Choisis la bonne forme de l'adjectif pour compléter la phrase.",
+                type: "mcq",
+                prompt: "🥐 Le croissant est ___ .",
+                imageUrl: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=80",
+                audioText: "Le croissant est bon.",
+                options: [
+                    { id: "A", text: "bon" },
+                    { id: "B", text: "bonne" },
+                    { id: "C", text: "bons" },
+                    { id: "D", text: "bonnes" }
+                ],
+                correctAnswer: "A",
+                explanation: "« Croissant » est masculin singulier, donc on utilise « bon »."
+            },
+            {
+                id: 3,
+                part: "PARTIE 1 — Choisis le bon adjectif",
+                subInstruction: "Choisis la bonne forme de l'adjectif pour compléter la phrase.",
+                type: "mcq",
+                prompt: "🥗 Les salades sont ___ .",
+                imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=600&q=80",
+                audioText: "Les salades sont fraîches.",
+                options: [
+                    { id: "A", text: "frais" },
+                    { id: "B", text: "fraîche" },
+                    { id: "C", text: "fraîches" },
+                    { id: "D", text: "fraisement" }
+                ],
+                correctAnswer: "C",
+                explanation: "« Salades » est féminin pluriel, donc on utilise « fraîches »."
+            },
+            {
+                id: 4,
+                part: "PARTIE 1 — Choisis le bon adjectif",
+                subInstruction: "Choisis la bonne forme de l'adjectif pour compléter la phrase.",
+                type: "mcq",
+                prompt: "🥤 Le jus d'orange est ___ .",
+                imageUrl: "https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=600&q=80",
+                audioText: "Le jus d'orange est froid.",
+                options: [
+                    { id: "A", text: "froid" },
+                    { id: "B", text: "froide" },
+                    { id: "C", text: "froids" },
+                    { id: "D", text: "froides" }
+                ],
+                correctAnswer: "A",
+                explanation: "« Jus » est masculin singulier, donc on utilise « froid »."
+            },
+
+            // PARTIE 2 : Fais les courses ! / Association (Q5 - Q7)
+            {
+                id: 5,
+                part: "PARTIE 2 — Fais les courses !",
+                subInstruction: "Associe chaque plat avec le bon adjectif accordé.",
+                type: "matching",
+                prompt: "🛒 Associe les plats et les adjectifs !",
+                imageUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80",
+                audioText: "Le gâteau est délicieux. La salade est délicieuse. Les pizzas sont délicieuses.",
+                items: [
+                    { id: "m1", label: "🍰 un gâteau", img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=120&q=80", correctAdj: "délicieux" },
+                    { id: "m2", label: "🥗 une salade", img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=120&q=80", correctAdj: "délicieuse" },
+                    { id: "m3", label: "🍕 des pizzas", img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=120&q=80", correctAdj: "délicieuses" }
+                ],
+                adjectives: ["délicieux", "délicieuse", "délicieuses"],
+                explanation: "« Gâteau » est masculin (délicieux), « salade » est féminine (délicieuse), et « pizzas » est au féminin pluriel (délicieuses)."
+            },
+            {
+                id: 6,
+                part: "PARTIE 2 — Fais les courses !",
+                subInstruction: "Associe chaque boisson ou plat à sa taille.",
+                type: "matching",
+                prompt: "☕ Trouve le bon adjectif de taille !",
+                imageUrl: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=600&q=80",
+                audioText: "Un grand café, une grande crêpe, de grandes baguettes.",
+                items: [
+                    { id: "m1", label: "☕ un café", img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=120&q=80", correctAdj: "grand" },
+                    { id: "m2", label: "🥞 une crêpe", img: "https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=120&q=80", correctAdj: "grande" },
+                    { id: "m3", label: "🥖 des baguettes", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=120&q=80", correctAdj: "grandes" }
+                ],
+                adjectives: ["grand", "grande", "grandes"],
+                explanation: "« Café » est masculin (grand), « crêpe » est féminine (grande), et « baguettes » est féminin pluriel (grandes)."
+            },
+            {
+                id: 7,
+                part: "PARTIE 2 — Fais les courses !",
+                subInstruction: "Associe chaque commande avec la bonne température.",
+                type: "matching",
+                prompt: "🥐 Choisis la bonne température !",
+                imageUrl: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80",
+                audioText: "Un chocolat chaud, une tisane chaude, des croissants chauds.",
+                items: [
+                    { id: "m1", label: "🍫 un chocolat", img: "https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&w=120&q=80", correctAdj: "chaud" },
+                    { id: "m2", label: "🍵 une tisane", img: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=120&q=80", correctAdj: "chaude" },
+                    { id: "m3", label: "🥐 des croissants", img: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=120&q=80", correctAdj: "chauds" }
+                ],
+                adjectives: ["chaud", "chaude", "chauds"],
+                explanation: "« Chocolat » est masculin (chaud), « tisane » est féminine (chaude), et « croissants » est masculin pluriel (chauds)."
+            },
+
+            // PARTIE 3 : Remets les mots en ordre (Q8 - Q10)
+            {
+                id: 8,
+                part: "PARTIE 3 — Remets les mots en ordre",
+                subInstruction: "Clique sur les cartes de mots pour composer une phrase correcte.",
+                type: "unscramble",
+                prompt: "🧩 Recompose la phrase du menu !",
+                imageUrl: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=600&q=80",
+                audioText: "Le gâteau est délicieux.",
+                words: ["délicieux.", "est", "Le gâteau"],
+                targetSentence: "Le gâteau est délicieux.",
+                explanation: "L'ordre correct est: Sujet (Le gâteau) + Verbe (est) + Adjectif (délicieux)."
+            },
+            {
+                id: 9,
+                part: "PARTIE 3 — Remets les mots en ordre",
+                subInstruction: "Clique sur les cartes de mots pour composer une phrase correcte.",
+                type: "unscramble",
+                prompt: "🧩 Recompose la phrase du plat !",
+                imageUrl: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80",
+                audioText: "La soupe est chaude.",
+                words: ["chaude.", "La soupe", "est"],
+                targetSentence: "La soupe est chaude.",
+                explanation: "L'ordre correct est: Sujet (La soupe) + Verbe (est) + Adjectif (chaude)."
+            },
+            {
+                id: 10,
+                part: "PARTIE 3 — Remets les mots en ordre",
+                subInstruction: "Clique sur les cartes de mots pour composer une phrase correcte.",
+                type: "unscramble",
+                prompt: "🧩 Recompose la phrase du service !",
+                imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80",
+                audioText: "Les pizzas sont délicieuses.",
+                words: ["délicieuses.", "sont", "Les pizzas"],
+                targetSentence: "Les pizzas sont délicieuses.",
+                explanation: "L'ordre correct est: Sujet (Les pizzas) + Verbe au pluriel (sont) + Adjectif pluriel (délicieuses)."
+            }
+        ];
+
+        let currentQuestionIdx = 0;
+        let score = 0;
+        let selectedOption = null;
+        let currentMatchingAnswers = {}; // { item_id: selected_adj }
+        let currentSentenceWords = [];
+        let speechSynth = window.speechSynthesis;
+        let frenchVoice = null;
+
+        /* ==========================================================================
+           2. SPEECH SYNTHESIS ENGINE (FR-FR AUDIO)
+           ========================================================================== */
+        function initAudioVoices() {
+            if (!speechSynth) return;
+            const voices = speechSynth.getVoices();
+            frenchVoice = voices.find(v => v.lang.includes('fr-FR') || v.lang.includes('fr')) || voices[0];
+        }
+
+        if (speechSynth) {
+            speechSynth.onvoiceschanged = initAudioVoices;
+            initAudioVoices();
+        }
+
+        function playAudioPrompt() {
+            if (!speechSynth) return;
+            
+            // Cancel existing speech
+            speechSynth.cancel();
+
+            const textToSpeak = questionsData[currentQuestionIdx].audioText;
+            const utterance = new SpeechSynthesisUtterance(textToSpeak);
+            utterance.lang = 'fr-FR';
+            utterance.rate = 0.88; // Slightly slower for A1 learners
+
+            if (frenchVoice) {
+                utterance.voice = frenchVoice;
+            }
+
+            const btnListen = document.getElementById('btnListen');
+            btnListen.classList.add('audio-playing');
+
+            utterance.onend = function() {
+                btnListen.classList.remove('audio-playing');
+            };
+
+            utterance.onerror = function() {
+                btnListen.classList.remove('audio-playing');
+            };
+
+            speechSynth.speak(utterance);
+        }
+
+        /* ==========================================================================
+           3. GAME CONTROLLER ENGINE
+           ========================================================================== */
+        function startGame() {
+            currentQuestionIdx = 0;
+            score = 0;
+            updateHeaderScore();
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('resultScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            loadQuestion(currentQuestionIdx);
+        }
+
+        function updateHeaderScore() {
+            document.getElementById('headerScore').textContent = `${score} / 100`;
+        }
+
+        function loadQuestion(idx) {
+            const q = questionsData[idx];
+            selectedOption = null;
+            currentMatchingAnswers = {};
+            currentSentenceWords = [];
+
+            // UI Header updates
+            document.getElementById('partTitle').textContent = q.part;
+            document.getElementById('questionCounter').textContent = `Question ${idx + 1} / 10`;
+            document.getElementById('questionPrompt').textContent = q.prompt;
+            document.getElementById('questionSubtext').textContent = q.subInstruction;
+
+            // Image display update
+            const imgWrapper = document.getElementById('questionImageWrapper');
+            const imgEl = document.getElementById('questionImg');
+            if (q.imageUrl) {
+                imgEl.src = q.imageUrl;
+                imgWrapper.classList.remove('hidden');
+            } else {
+                imgWrapper.classList.add('hidden');
+            }
+
+            // Progress Bar Update
+            const pct = ((idx + 1) / 10) * 100;
+            document.getElementById('progressBar').style.width = `${pct}%`;
+
+            // Reset buttons & feedback
+            document.getElementById('btnValidate').classList.remove('hidden');
+            document.getElementById('btnValidate').disabled = false;
+            document.getElementById('btnValidate').classList.remove('opacity-50', 'cursor-not-allowed');
+            document.getElementById('btnNext').classList.add('hidden');
+            
+            const feedbackPanel = document.getElementById('feedbackPanel');
+            feedbackPanel.classList.add('hidden');
+            feedbackPanel.className = "hidden p-4 rounded-xl mb-4 text-left transition-all duration-300";
+
+            // Render workspace based on type
+            const workspace = document.getElementById('answerWorkspace');
+            workspace.innerHTML = '';
+
+            if (q.type === 'mcq') {
+                renderMCQ(q, workspace);
+            } else if (q.type === 'matching') {
+                renderMatching(q, workspace);
+            } else if (q.type === 'unscramble') {
+                renderUnscramble(q, workspace);
+            }
+
+            // Play audio automatically after small delay
+            setTimeout(() => {
+                playAudioPrompt();
+            }, 300);
+        }
+
+        function renderMCQ(q, container) {
+            const grid = document.createElement('div');
+            grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto w-full';
+
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'mcq-opt bg-white hover:bg-mama-yellow-light border-2 border-mama-pink/30 rounded-2xl p-4 text-center font-medium text-slate-800 transition-all duration-200 flex items-center justify-between shadow-sm cursor-pointer';
+                btn.onclick = () => selectMCQOption(opt.id, btn);
+                btn.innerHTML = `
+                    <span class="w-8 h-8 rounded-full bg-mama-yellow text-slate-900 font-mama font-bold flex items-center justify-center text-sm border border-white shadow-sm">${opt.id}</span>
+                    <span class="text-base font-bold flex-grow text-center font-mama">${opt.text}</span>
+                    <span class="w-6 h-6 rounded-full border-2 border-slate-300 opt-radio"></span>
+                `;
+                grid.appendChild(btn);
+            });
+
+            container.appendChild(grid);
+        }
+
+        function selectMCQOption(optId, el) {
+            selectedOption = optId;
+            document.querySelectorAll('.mcq-opt').forEach(btn => {
+                btn.classList.remove('border-mama-pink', 'bg-mama-pink/10');
+                btn.classList.add('bg-white', 'border-mama-pink/30');
+                btn.querySelector('.opt-radio').classList.remove('bg-mama-pink', 'border-mama-pink');
+            });
+
+            el.classList.remove('bg-white', 'border-mama-pink/30');
+            el.classList.add('border-mama-pink', 'bg-mama-pink/10');
+            el.querySelector('.opt-radio').classList.add('bg-mama-pink', 'border-mama-pink');
+        }
+
+        function renderMatching(q, container) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'space-y-4 max-w-xl mx-auto w-full';
+
+            q.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-mama-yellow rounded-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm';
+                
+                const label = document.createElement('div');
+                label.className = 'font-mama font-bold text-slate-800 text-base md:text-lg flex items-center gap-3';
+                
+                const thumbImg = item.img ? `<img src="${item.img}" class="w-10 h-10 object-cover rounded-xl border-2 border-mama-pink shadow-sm" onerror="this.style.display='none'">` : '';
+                label.innerHTML = `${thumbImg} <span>${item.label}</span>`;
+
+                const selectGroup = document.createElement('div');
+                selectGroup.className = 'flex flex-wrap gap-2 justify-center';
+
+                q.adjectives.forEach(adj => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = `match-btn-${item.id} px-3 py-1.5 rounded-xl border-2 border-slate-200 text-xs md:text-sm font-bold font-mama transition-all cursor-pointer bg-slate-50 text-slate-700 hover:bg-mama-yellow-light`;
+                    btn.textContent = adj;
+                    btn.onclick = () => {
+                        currentMatchingAnswers[item.id] = adj;
+                        document.querySelectorAll(`.match-btn-${item.id}`).forEach(b => {
+                            b.className = `match-btn-${item.id} px-3 py-1.5 rounded-xl border-2 border-slate-200 text-xs md:text-sm font-bold font-mama transition-all cursor-pointer bg-slate-50 text-slate-700 hover:bg-mama-yellow-light`;
+                        });
+                        btn.className = `match-btn-${item.id} px-3 py-1.5 rounded-xl border-2 border-mama-pink text-xs md:text-sm font-bold font-mama transition-all cursor-pointer bg-mama-pink text-white shadow-sm`;
+                    };
+                    selectGroup.appendChild(btn);
+                });
+
+                card.appendChild(label);
+                card.appendChild(selectGroup);
+                wrapper.appendChild(card);
+            });
+
+            container.appendChild(wrapper);
+        }
+
+        function renderUnscramble(q, container) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'flex flex-col items-center gap-6 max-w-xl mx-auto w-full';
+
+            // Sentence drop/assembly area
+            const dropZone = document.createElement('div');
+            dropZone.id = 'sentenceDropZone';
+            dropZone.className = 'w-full min-h-[70px] bg-white border-2 border-dashed border-mama-pink rounded-2xl p-3 flex flex-wrap items-center justify-center gap-2 shadow-inner';
+            dropZone.innerHTML = '<span id="placeholderText" class="text-slate-400 text-xs font-semibold italic">Cliquez sur les mots ci-dessous pour former la phrase</span>';
+
+            // Pool of word tiles
+            const wordPool = document.createElement('div');
+            wordPool.className = 'flex flex-wrap items-center justify-center gap-2.5';
+
+            q.words.forEach((word, wIdx) => {
+                const tile = document.createElement('button');
+                tile.className = `word-tile-${wIdx} bg-mama-yellow-light hover:bg-mama-yellow border-2 border-mama-yellow text-slate-800 font-mama font-bold px-4 py-2.5 rounded-2xl shadow transition-all duration-200 cursor-pointer text-base md:text-lg`;
+                tile.textContent = word;
+                tile.onclick = () => handleWordClick(word, wIdx, tile);
+                wordPool.appendChild(tile);
+            });
+
+            wrapper.appendChild(dropZone);
+            wrapper.appendChild(wordPool);
+            container.appendChild(wrapper);
+        }
+
+        function handleWordClick(word, wIdx, tileEl) {
+            const dropZone = document.getElementById('sentenceDropZone');
+            const placeholder = document.getElementById('placeholderText');
+
+            if (placeholder) {
+                placeholder.remove();
+            }
+
+            const existingIdx = currentSentenceWords.findIndex(item => item.wIdx === wIdx);
+
+            if (existingIdx !== -1) {
+                currentSentenceWords.splice(existingIdx, 1);
+                tileEl.classList.remove('opacity-40', 'scale-95');
+                tileEl.disabled = false;
+            } else {
+                currentSentenceWords.push({ word, wIdx });
+                tileEl.classList.add('opacity-40', 'scale-95');
+            }
+
+            renderDropZoneTiles();
+        }
+
+        function renderDropZoneTiles() {
+            const dropZone = document.getElementById('sentenceDropZone');
+            dropZone.innerHTML = '';
+
+            if (currentSentenceWords.length === 0) {
+                dropZone.innerHTML = '<span id="placeholderText" class="text-slate-400 text-xs font-semibold italic">Cliquez sur les mots ci-dessous pour former la phrase</span>';
+                return;
+            }
+
+            currentSentenceWords.forEach((item, index) => {
+                const placedTile = document.createElement('span');
+                placedTile.className = 'bg-mama-pink text-white font-mama font-bold px-4 py-2 rounded-xl text-sm md:text-base shadow flex items-center gap-2 border border-white';
+                placedTile.innerHTML = `${item.word} <i class="fa-solid fa-xmark text-xs cursor-pointer opacity-80 hover:opacity-100"></i>`;
+                placedTile.onclick = () => {
+                    const originalTile = document.querySelector(`.word-tile-${item.wIdx}`);
+                    if (originalTile) handleWordClick(item.word, item.wIdx, originalTile);
+                };
+                dropZone.appendChild(placedTile);
+            });
+        }
+
+        /* ==========================================================================
+           4. VALIDATION & FEEDBACK ENGINE
+           ========================================================================== */
+        function validateAnswer() {
+            const q = questionsData[currentQuestionIdx];
+            let isCorrect = false;
+
+            if (q.type === 'mcq') {
+                if (!selectedOption) {
+                    showTemporaryToast("Veuillez choisir une réponse !");
+                    return;
+                }
+                isCorrect = (selectedOption === q.correctAnswer);
+            } else if (q.type === 'matching') {
+                const totalItems = q.items.length;
+                const answeredKeys = Object.keys(currentMatchingAnswers);
+                if (answeredKeys.length < totalItems) {
+                    showTemporaryToast("Veuillez associer tous les éléments !");
+                    return;
+                }
+                isCorrect = q.items.every(item => currentMatchingAnswers[item.id] === item.correctAdj);
+            } else if (q.type === 'unscramble') {
+                if (currentSentenceWords.length < q.words.length) {
+                    showTemporaryToast("Veuillez placer tous les mots !");
+                    return;
+                }
+                const formed = currentSentenceWords.map(w => w.word).join(" ");
+                isCorrect = (formed === q.targetSentence);
+            }
+
+            // Calculate score update
+            if (isCorrect) {
+                score += 10;
+                updateHeaderScore();
+            }
+
+            // Lock validation button
+            document.getElementById('btnValidate').classList.add('hidden');
+            document.getElementById('btnNext').classList.remove('hidden');
+
+            // Show feedback
+            displayFeedback(isCorrect, q);
+        }
+
+        function displayFeedback(isCorrect, q) {
+            const panel = document.getElementById('feedbackPanel');
+            const icon = document.getElementById('feedbackIcon');
+            const title = document.getElementById('feedbackTitle');
+            const explanation = document.getElementById('feedbackExplanation');
+
+            panel.classList.remove('hidden');
+
+            if (isCorrect) {
+                panel.className = "p-4 rounded-2xl mb-4 text-left border-2 border-emerald-400 bg-emerald-50 text-emerald-900 shadow";
+                icon.innerHTML = "👩‍🍳✨";
+                title.textContent = "Même plus fort(e) que Mama ! Bravo !";
+                explanation.textContent = q.explanation;
+            } else {
+                panel.className = "p-4 rounded-2xl mb-4 text-left border-2 border-amber-400 bg-amber-50 text-amber-900 shake shadow";
+                icon.innerHTML = "🥣";
+                title.textContent = "Ne t'inquiète pas, Mama va t'aider !";
+                explanation.textContent = q.explanation;
+            }
+        }
+
+        function showTemporaryToast(msg) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-mama-yellow border-2 border-mama-yellow px-5 py-2.5 rounded-2xl text-xs md:text-sm font-bold font-mama z-50 shadow-2xl animate-bounce';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2000);
+        }
+
+        function nextQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < questionsData.length) {
+                loadQuestion(currentQuestionIdx);
+            } else {
+                showResults();
+            }
+        }
+
+        /* ==========================================================================
+           5. FINAL RESULTS & CELEBRATION CONFETTI ENGINE
+           ========================================================================== */
+        function showResults() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            const resultScreen = document.getElementById('resultScreen');
+            resultScreen.classList.remove('hidden');
+
+            // Animated Score Counter
+            const finalScoreVal = document.getElementById('finalScoreVal');
+            let currentDisplay = 0;
+            const targetScore = score;
+            const duration = 1200; // ms
+            const stepTime = 30;
+            const increment = Math.ceil(targetScore / (duration / stepTime)) || 1;
+
+            const counterTimer = setInterval(() => {
+                currentDisplay += increment;
+                if (currentDisplay >= targetScore) {
+                    currentDisplay = targetScore;
+                    clearInterval(counterTimer);
+                }
+                finalScoreVal.textContent = currentDisplay;
+            }, stepTime);
+
+            // Configure Appreciation Badge (Mama Fatiah Style)
+            const titleEl = document.getElementById('appreciationTitle');
+            const textEl = document.getElementById('appreciationText');
+
+            if (score >= 90) {
+                titleEl.textContent = "🎉 FÉLICITATIONS DE MAMA !";
+                textEl.textContent = "Même plus fort(e) que Mama ! Tu maîtrises parfaitement les adjectifs !";
+                launchConfetti(120);
+            } else if (score >= 70) {
+                titleEl.textContent = "✨ BRAVO ! MAMA EST FIÈRE !";
+                textEl.textContent = "Très bon travail ! Tu es un excellent apprenti chef !";
+                launchConfetti(80);
+            } else if (score >= 50) {
+                titleEl.textContent = "😊 BIEN JOUÉ !";
+                textEl.textContent = "Tu progresses bien ! Continue de cuisiner les mots avec Fatiah.";
+                launchConfetti(40);
+            } else {
+                titleEl.textContent = "💪 COURAGE !";
+                textEl.textContent = "Ne t'inquiète pas ! Réessaie la recette, tu peux y arriver !";
+                launchConfetti(20);
+            }
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        function launchConfetti(count) {
+            const canvas = document.getElementById('confettiCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#FF6B8B', '#FFD15C', '#4ECDC4', '#9B51E0', '#FF4757'];
+            const icons = ['✨', '⭐', '🍳', '🥐', '🍰', '🧁'];
+
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 3,
+                    vx: (Math.random() - 0.5) * 14,
+                    vy: (Math.random() - 0.7) * 14,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    icon: Math.random() > 0.6 ? icons[Math.floor(Math.random() * icons.length)] : null,
+                    rotation: Math.random() * 360,
+                    rSpeed: (Math.random() - 0.5) * 6,
+                    opacity: 1
+                });
+            }
+
+            let animationFrame;
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.25; // gravity
+                    p.rotation += p.rSpeed;
+                    p.opacity -= 0.008;
+
+                    if (p.opacity > 0) {
+                        alive = true;
+                        ctx.save();
+                        ctx.globalAlpha = Math.max(0, p.opacity);
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate((p.rotation * Math.PI) / 180);
+
+                        if (p.icon) {
+                            ctx.font = `${p.size * 2}px sans-serif`;
+                            ctx.fillText(p.icon, 0, 0);
+                        } else {
+                            ctx.fillStyle = p.color;
+                            ctx.beginPath();
+                            ctx.arc(0, 0, p.size, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+                        ctx.restore();
+                    }
+                });
+
+                if (alive) {
+                    animationFrame = requestAnimationFrame(animate);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    cancelAnimationFrame(animationFrame);
+                }
+            }
+
+            animate();
+        }
+
+        // Window resize handle
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confettiCanvas');
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+    </script>
+</body>
+</html>
